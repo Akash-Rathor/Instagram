@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Login</title>
+</head>
+
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+            <h3>Welcome</h3>
+            <p>You are 30 seconds away from earning your own money!</p>
+            <a class="login-btn" href="/accounts/register">Register</a>
+    </div>
+        <div class="col-md-9 register-right">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <!-- <li class="nav-item"> -->
+                    <!-- <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Company</a> -->
+                <!-- </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hirer</a>
+                </li> -->
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Login</h3>
+                    <form action="{{login}}" method="post">
+                    {% csrf_token %}
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="username" placeholder="Username" value="" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" title="Minimum of 8 characters. Combination of small & capital letters along with numbers and special characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" placeholder="Password" value="" required>
+                            </div>
+                            <a class="btnRegister" href="/accounts/username_verification/" style="padding-left:20px; color:white;" value="Forgot password">forgot password</a>
+                            <input type="submit" class="btnRegister"  value="Login"/>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var check_cpw = function() {
+            if (document.getElementsByName('password1').value ==
+              document.getElementsByName('password2').value) {
+              document.getElementById('cpwd_message').style.color = 'green';
+              document.getElementById('cpwd_message').innerHTML = '<i class="fa fa-check">Confirmed</i>';
+              document.getElementById('reg_btn').disable = false
+            } else {
+              document.getElementById('cpwd_message').style.color = 'red';
+              document.getElementById('cpwd_message').innerHTML = "<i class='fa fa-times'>Password didn't matched</i>";
+              document.getElementById('reg_btn').disable = true
+            }
+          }
+          
+    </script>
+</div>
+
+</body>
+</html>

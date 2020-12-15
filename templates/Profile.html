@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Profile</title>
+</head>
+<body>
+
+    <header class="text-gray-700 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl">Profile</span>
+          </a>
+          <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+          </nav>
+          <a class="login-btn2" href="/manage/menu">My Menu</a>
+          <a class="login-btn2" href="/manage/register">Add Customer</a>
+          <a class="login-btn2" href="/manage/post">Upload Product</a>
+          <a class="login-btn2" href="/manage/company_dashboard">Dashboard</a>
+          <a class="login-btn2" href="/accounts/logout">Logout</a>
+            <!-- <a class="login-btn2" href="/accounts/register">Register</a> -->
+        <!-- </div> -->
+        </div>
+      </header>
+
+      <header>
+
+        <div class="container">
+    
+            <div class="profile">
+    
+                <div class="profile-image">
+                    <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
+    
+                </div>
+    
+                <div class="profile-user-settings">
+    
+                    <a href="{% url 'profile' context.profile.username %}" ><h1 class="profile-user-name">{{context.profile.username}}</h1></a>
+    
+                    <!-- <button class="btn profile-edit-btn">Edit Profile</button> -->
+    
+                    <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+    
+                </div>
+    
+                <div class="profile-stats">
+    
+                    <ul>
+                        <!-- <li><span class="profile-stat-count">164</span> posts</li> -->
+                        <li><span class="profile-stat-count">{{context.follow.followers}}</span> followers</li>
+                        <li><span class="profile-stat-count">{{context.follow.following}}</span> following</li>
+                    </ul>
+                    {% if not context.status %}
+                    <a class="login-btn2" href="{% url 'add_follow' context.profile.username %}">Follow</a>
+                    {% else %}
+                    <a class="login-btn2" href="{% url 'del_follow' context.profile.username %}">Unfollow</a>
+                    {% endif %}
+                   
+                </div>
+
+                {% for cat in context.catagory %}
+                <span class="profile-stat-count">{{cat.cat_name}}</span>
+                {% endfor %}
+    
+                <div class="profile-bio">
+    
+                    <p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+    
+                </div>
+                
+            </div>
+            
+            <!-- End of profile section -->
+    
+        </div>
+        <!-- End of container -->
+    
+    </header>
+    
+    <main>
+    
+        <div class="container">
+    
+            <div class="gallery">
+    
+                <div class="gallery-item" tabindex="0">
+    
+                    <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
+    
+                    <div class="gallery-item-info">
+                        <ul>
+                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
+                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gallery-item" tabindex="0">
+    
+                    <img src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop" class="gallery-image" alt="">
+    
+                    <div class="gallery-item-type">
+    
+                        <span class="visually-hidden">Video</span><i class="fas fa-video" aria-hidden="true"></i>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- End of gallery -->
+    
+            <div class="loader"></div>
+    
+        </div>
+        <!-- End of container -->
+    
+    </main>
+
+      </body>
+      </html>
