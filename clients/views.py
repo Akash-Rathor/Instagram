@@ -109,7 +109,6 @@ def like_post(request,posts_id):
 def unlike_post(request,posts_id):
     if request.user.is_authenticated:
         obj = likes.objects.get(post_id_id=posts_id,user_who_liked=request.user.id).delete()
-        print(obj)
         return redirect('infinite_post')
 
 def infinite_post(request):
