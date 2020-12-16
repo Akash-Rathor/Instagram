@@ -57,8 +57,6 @@ def delete_customer(request,key_id):
     else:
         return redirect('login-page')
 
-
-
 def profile(request,username):
     user_id=User.objects.get(username=username)
     user_by = request.user.id
@@ -103,20 +101,53 @@ def check_user(username,user_by):
         return status
 
 
-def like_post():
-    # print(user_id)
+def like_post(request,posts_id):
     if request.user.is_authenticated:
-        likes(post_id=post_id,user_who_liked=request.user.id)
+        likes(post_id_id=posts_id,user_who_liked=request.user.id).save()
         return redirect('infinite_post')
 
-def unlike_post():
-    pass
+def unlike_post(request,posts_id):
+    if request.user.is_authenticated:
+        obj = likes.objects.get(post_id_id=posts_id,user_who_liked=request.user.id).delete()
+        print(obj)
+        return redirect('infinite_post')
 
 def infinite_post(request):
     if request.user.is_authenticated:
         t = followers.objects.filter(followed_id=request.user.id)
         list_of_followed=[i.follower_id for i in t]
-        post = posts.objects.filter(user_id__in=list_of_followed).order_by('updated_at','created_at')
-        return render(request,'posts.html',{'context':post})
+        post = posts.objects.filter(user_id__in=list_of_followed).order_by('-updated_at','created_at')
+        liked = [i.post_id.id for i in likes.objects.filter(user_who_liked=request.user.id)]
+
+        context = {
+
+            'post':post,
+            'liked':liked,
+        }
+
+        return render(request,'posts.html',{'context':context})
     else:
         return redirect('login-Page')
+
+
+# def infinite_post(request):
+#     if request.user.is_authenticated:
+#         t = followers.objects.filter(followed_id=request.user.id)
+#         list_of_followed=[i.follower_id for i in t]
+#         post = posts.objects.filter(user_id__in=list_of_followed).order_by('-updated_at','created_at')
+#         context = {
+#             'post':post,
+#         }
+#         return render(request,'posts.html',{'context':context})
+#     else:
+#         return redirect('login-Page')
+
+
+def check_liked_or_not(posts_id,user_id_1,user_id):
+    status=False
+    try:
+        likes.objects.get(post_id_id=posts_id,user_who_liked=user_id_1,whose_liked=user_id)
+        status = True
+        return status
+    except:
+        return status

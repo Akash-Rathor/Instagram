@@ -53,3 +53,4 @@ class posts(TimeStampMixin):
 class likes(TimeStampMixin):
     post_id=models.ForeignKey(posts, on_delete=models.CASCADE,null=True)
     user_who_liked = models.IntegerField()
+    # whose_liked = models.IntegerField()

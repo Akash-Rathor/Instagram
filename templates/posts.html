@@ -31,10 +31,16 @@
           <a class="login-btn2" href="/accounts/logout">Logout</a>
         </div>
     </header>
-    {% for i in context %}
+    {% for i in context.post %}
     {{i.post}}
-    {{i.id}}
-    <a class="login-btn2" href="{% url 'like' i.id %}">Like Post</a> 
+    {% if i.id in context.liked %}
+    <a class="login-btn2" href="{% url 'unlike' i.id %}">UnLike Post</a>
+    {% else %}
+    <a class="login-btn2" href="{% url 'like' i.id %}">Like Post</a>
+    {% endif %}
+    
+    
+    
     {% endfor %}
     
 
