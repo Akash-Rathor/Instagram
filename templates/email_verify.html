@@ -23,7 +23,7 @@
             {% csrf_token %}
             <input type="text" name="otp_sent"  title= "Verification code is required" maxlength="7" placeholder="Enter OTP sent on your email id" required="required" />
             <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
-			<a class="btnRegister" href="/accounts/username_verification/" style="padding-left:20px; color:white;" value="Forgot password">forgot password</a>
+			<a class="btnRegister" href="/accounts/login/" style="padding-left:20px; color:white;" value="Forgot password">Login</a>
         </form>
     </div>
     {% if messages %}
