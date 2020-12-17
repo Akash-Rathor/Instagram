@@ -10,6 +10,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/style_profile.css' %}" rel="stylesheet">
     <title>Dashboard</title>
 </head>
 <body>
@@ -20,15 +21,15 @@
             <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path> -->
             </svg>
-            <span class="ml-3 text-xl">TizzyWizzy</span>
+            <!-- <span class="ml-3 text-xl">TizzyWizzy</span> -->
           </a>
           <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
           </nav>
           <!-- <a class="login-btn2" href="/manage/menu">My Menu</a>
           <a class="login-btn2" href="/manage/add_customer">Add Customer</a>
           <a class="login-btn2" href="/manage/product">Upload Product</a> -->
-          <a class="login-btn2" href="/manage/">Feeds</a>
-          <a class="login-btn2" href="/accounts/logout">Logout</a>
+          <!-- <a class="login-btn2" href="/manage/">Feeds</a> -->
+          <!-- <a class="login-btn2" href="/accounts/logout">Logout</a> -->
             <!-- <a class="login-btn2" href="/accounts/register">Register</a> -->
         <!-- </div> -->
 
@@ -37,7 +38,7 @@
       <div class="heading">
         <h1>Upload Post</h1>
       </div>
-      <form class="form-inline" method="POST">
+      <form class="form-inline" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
     <div class="upload">
       <div class="file-upload-wrapper">
@@ -53,6 +54,11 @@
       <button type="submit" class="btn btn-success" style="display:block; margin:auto;">Submit</button>
     </div>
   </form>
-  </script>
+  <div class="footer">
+    <a href="/manage/post" ><button class="button button5 plus"><i class="fa fa-upload fa-2x" style="margin-left:-8px;" aria-hidden="true"></i></button></a>
+    <a href="/manage/" ><button class="button button5 plus"><i class="fa fa-list fa-2x" style="margin-left:-8px;"aria-hidden="true"></i></button></a>
+    <a href="/manage/search/" ><button class="button button5 plus"><i class="fa fa-search fa-2x" style="margin-left:-10px;" aria-hidden="true"></i></button> </a>
+    <a href="/manage/{{context.profile.username}}" ><button class="button button5 plus"><i class="fa fa-user fa-2x" style="margin-left:-7px;" aria-hidden="true"></i></button></a>
+</div>
 </body>
 </html>

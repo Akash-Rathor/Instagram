@@ -9,7 +9,7 @@
   
   
 .nonen{
-  padding:5px;
+  padding:10px;
 }
 
 .user-info{
@@ -21,7 +21,7 @@
 .post_image{
   display:block;
   margin:auto;
-  width:300px;
+  width:500px;
   height:auto;
   border-radius:20px;
   border:2px solid #000000;

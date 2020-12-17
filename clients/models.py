@@ -47,10 +47,10 @@ class followers(TimeStampMixin):
 
 class posts(TimeStampMixin):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-    post_file=models.ImageField(max_length=400,null=True)
+    post_file=models.ImageField(upload_to='posts/%Y/%m/%d')
     post = models.CharField(max_length=500,null=True)
     username = models.CharField(max_length=500)
-    like_count = models.IntegerField()
+    like_count = models.IntegerField(default=0)
 
 class likes(TimeStampMixin):
     post_id=models.ForeignKey(posts, on_delete=models.CASCADE,null=True)

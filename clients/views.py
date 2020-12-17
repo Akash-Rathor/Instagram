@@ -8,11 +8,11 @@ def dashboard(request):
 
 def post(request):
     if request.user.is_authenticated:
-        if request.method=="POST":
-            image = request.POST['post_file']
+        if request.method=="POST" and request.FILES: 
+            image = request.FILES['post_file']
             desc = request.POST['description']
-            posts(user_id=request.user,post_file=image,post=desc).save()
-            return redirect('company dashboard')
+            posts(user_id=request.user,post_file=image,post=desc,username=request.user.username).save()
+            return redirect('/manage/'+request.user.username)
         else:
             return render(request,'post_upload.html')
     else:
@@ -61,7 +61,8 @@ def profile(request,username):
     user_id=User.objects.get(username=username)
     user_by = request.user.id
     status_statu = check_user(username,user_by)
-    posts1 = posts.objects.filter(username=username)
+    posts1 = posts.objects.filter(user_id=user_id.id)
+    # print(user_id.id)
     if len(posts1)==0:
         catch=False
     else:
@@ -71,15 +72,15 @@ def profile(request,username):
         itsme = False
     else:
         itsme=True
+        
     context = {
         'profile':User.objects.get(id=user_id.id),
         'posts':posts1,
-        'catagory':catagory.objects.all(),
+        # 'catagory':catagory.objects.all(),
         'status':status_statu,
         'itsme':itsme,
         'posts_exists':catch,
     }
-    print(context['posts'])
     return render(request,'Profile.html',{'context':context})
 
 def add_follow(request,username):
@@ -142,20 +143,6 @@ def infinite_post(request):
         return render(request,'posts.html',{'context':context})
     else:
         return redirect('login-Page')
-
-
-# def infinite_post(request):
-#     if request.user.is_authenticated:
-#         t = followers.objects.filter(followed_id=request.user.id)
-#         list_of_followed=[i.follower_id for i in t]
-#         post = posts.objects.filter(user_id__in=list_of_followed).order_by('-updated_at','created_at')
-#         context = {
-#             'post':post,
-#         }
-#         return render(request,'posts.html',{'context':context})
-#     else:
-#         return redirect('login-Page')
-
 
 def check_liked_or_not(posts_id,user_id_1,user_id):
     status=False
