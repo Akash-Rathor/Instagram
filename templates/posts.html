@@ -1,43 +1,60 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Infinite posts</title>
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link href="{% static 'css/feeds.css' %}" rel="stylesheet">
 </head>
+
 <body>
 
-    <header class="text-gray-700 body-font">
-        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <span class="ml-3 text-xl">Posts</span>
-          </a>
-          <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-          </nav>
-          <a class="login-btn2" href="/manage/menu">My Menu</a>
-          <a class="login-btn2" href="/manage/add_customer">Add Customer</a>
-          <a class="login-btn2" href="/manage/product">Upload Product</a>
-          <a class="login-btn2" href="/manage/company_dashboard">Dashboard</a>
-          <a class="login-btn2" href="/accounts/logout">Logout</a>
+<header class="text-gray-700 body-font">
+</header>
+<div class="menu">
+  <div class="logo">
+  <a href="/"><img class="logo_img" src="{% static 'images/tizzywizzy_logo.png' %}" alt="TizzyWizzy"></a>
+  <!-- <h5>TizzyWizzy</h5> -->
+  <div class="myprofile">
+    <a href="/manage/{{context.myself}}"><img class="profile_img" src="{% static 'images/user.png' %}" alt="TizzyWizzy"></a>
+  </div>
+</div>
+</div>
+{% for i in context.post %}
+<div class="nonen">
+    <div class="post_image">
+        <div class="user-info">
+            <h3><a href="/manage/{{i.username}}" style="color:rgb(37, 228, 30);">{{i.username}}</a></h3>
         </div>
-    </header>
-    {% for i in context.post %}
-    {{i.post}}
-    {% if i.id in context.liked %}
-    <a class="login-btn2" href="{% url 'unlike' i.id %}">UnLike Post</a>
-    {% else %}
-    <a class="login-btn2" href="{% url 'like' i.id %}">Like Post</a>
-    {% endif %}
-    {% endfor %}
-    
+        {% if i.post_file is not none %}
+        <!-- <img src="{% static 'images/lead-image-105.png' %}" style="width:500px; height:500px;" alt="alternative text"> -->
+        {% if i.post_file.url is defined %}
+        <img src="{{ i.post_file.url }}" style="width:500px; height:500px;" alt="alternative text">
+        {% endif %}
 
+        {% endif %}
+            <div class="row">
+              <div class="user-info-2">
+                <h5 style="color:rgb(50, 24, 192); text-align: center;">{{i.post}}</a></h5>
+            </div>
+                <div class="column">  
+                    {% if i.id in context.liked %}
+                    <a href="{% url 'unlike' i.id %}" id="unlike"><img style="margin-left:20px; margin-top:-10px; width:50px;" src="{% static 'images/after-heart.png' %}"></a>
+                    {% else %}
+                    <a href="{% url 'like' i.id %}" id="like"><img style="margin-left:20px; margin-top:-10px; width:50px;" src="{% static 'images/before-heart.png' %}"></a>
+                    {% endif %}
+                    <div class="column2">
+                        <h5 style="margin-top:-5px;" id="load" >{{i.like_count}} Likes</h5>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+{% endfor %}  
+
+</body>
+<script>
+</script>
+</html>

@@ -1,0 +1,63 @@
+.headmenu{
+    display:block;
+    margin:auto;
+    /* width:100%; */
+}
+
+.headmenu2{
+    float:left;
+    display:block;
+    margin-left:50px;
+    margin-top:20px;
+    width:20%;
+    height:auto;
+}
+
+.headmenu3{
+    float:left;
+    display:block;
+    text-align:center;
+    padding:1px;
+    /* margin-left:10px; */
+    /* height:auto; */
+}
+
+.profile_img{
+    width:100px;
+    height:auto;
+    padding:5px;
+}
+
+.login-btn2{
+    background-color:#5383bd;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 7px 20px 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10px;
+  }
+
+.login-btn2:hover{
+    background-color:#3633de;
+    color:white;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+.post_column {
+float: left;
+width: 33.33%;
+padding: 5px;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}

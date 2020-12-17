@@ -61,13 +61,25 @@ def profile(request,username):
     user_id=User.objects.get(username=username)
     user_by = request.user.id
     status_statu = check_user(username,user_by)
+    posts1 = posts.objects.filter(username=username)
+    if len(posts1)==0:
+        catch=False
+    else:
+        catch=True
 
+    if request.user.id!=user_id.id:
+        itsme = False
+    else:
+        itsme=True
     context = {
         'profile':User.objects.get(id=user_id.id),
-        # 'follow':creator_profile.objects.get(user_id=user_id),
+        'posts':posts1,
         'catagory':catagory.objects.all(),
         'status':status_statu,
+        'itsme':itsme,
+        'posts_exists':catch,
     }
+    print(context['posts'])
     return render(request,'Profile.html',{'context':context})
 
 def add_follow(request,username):
@@ -104,11 +116,13 @@ def check_user(username,user_by):
 def like_post(request,posts_id):
     if request.user.is_authenticated:
         likes(post_id_id=posts_id,user_who_liked=request.user.id).save()
+        check_like(posts_id,"add")
         return redirect('infinite_post')
 
 def unlike_post(request,posts_id):
     if request.user.is_authenticated:
         obj = likes.objects.get(post_id_id=posts_id,user_who_liked=request.user.id).delete()
+        check_like(posts_id,"sub")
         return redirect('infinite_post')
 
 def infinite_post(request):
@@ -117,11 +131,12 @@ def infinite_post(request):
         list_of_followed=[i.follower_id for i in t]
         post = posts.objects.filter(user_id__in=list_of_followed).order_by('-updated_at','created_at')
         liked = [i.post_id.id for i in likes.objects.filter(user_who_liked=request.user.id)]
-
+        me = User.objects.get(id=request.user.id)
         context = {
-
+            'myself':me,
             'post':post,
             'liked':liked,
+            # 'username':username,
         }
 
         return render(request,'posts.html',{'context':context})
@@ -150,3 +165,14 @@ def check_liked_or_not(posts_id,user_id_1,user_id):
         return status
     except:
         return status
+
+
+def check_like(post_id,val):
+    like = posts.objects.get(id=post_id)
+    if val=="add":
+        like.like_count+=1
+        like.save()
+    if val=="sub":
+        like.like_count-=1
+        like.save()
+    

@@ -19,4 +19,4 @@ urlpatterns = [
     path('like/<int:posts_id>',views.like_post,name="like"),
     path('unlike/<int:posts_id>',views.unlike_post,name="unlike"),
     path('',views.infinite_post,name="infinite_post"),
-]
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
