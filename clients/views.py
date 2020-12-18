@@ -138,7 +138,7 @@ def infinite_post(request):
     if request.user.is_authenticated:
         t = followers.objects.filter(followed_by_id=request.user.id)
         list_of_followed=[i.followed_to_id for i in t]
-        post = posts.objects.filter(user_id__in=list_of_followed).order_by('-updated_at','created_at')
+        post = posts.objects.filter(user_id__in=list_of_followed).order_by('-created_at')
         liked = [i.post_id.id for i in likes.objects.filter(user_who_liked=request.user.id)]
         me = User.objects.get(id=request.user.id)
         context = {
@@ -195,10 +195,8 @@ def followers_page(request,username):
 
 def remove_follower(request,username1,username):
     if request.user.is_authenticated:
-        # user = request.user
         user_to_remove=User.objects.get(username=username).id
         user = User.objects.get(username=username1).id
-        print(user,user_to_remove)
         followers.objects.get(followed_to_id=user,followed_by_id=user_to_remove).delete()
         return redirect('/manage/'+username1)
 
@@ -229,5 +227,29 @@ def following_page(request,username):
         }
 
         return render(request,'followers.html',{'context':context})
+    else:
+        return redirect('login-Page')
+
+
+def search_user(request,username):
+    if request.user.is_authenticated:
+        context={
+            'my_username':User.objects.get(id=request.user.id).username
+        }
+        if request.method=="POST":
+            username = request.POST['username_to_Search']
+            try:
+                search_status2 = User.objects.get(username=username)
+                search_status=True
+            except:
+                search_status2=""
+                search_status=False
+
+            context['userfound']=search_status2
+            context['userstatus']=search_status
+            print(search_status)
+            return render(request,'search_user.html',{'context':context})
+        else:
+            return render(request,'search_user.html',{'context':context})
     else:
         return redirect('login-Page')

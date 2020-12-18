@@ -20,7 +20,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('company dashboard')
+            return redirect('infinite_post')
         else:
             messages.info(request, "Invalid Credentials")
     return render(request, 'login.html/')

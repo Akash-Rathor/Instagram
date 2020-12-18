@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login-css.css' %}">
+    <link href="{% static 'css/style_profile.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Find User</title>
+</head>
+<body>
+    <div class="login">
+        <div style="margin-left:110px;">
+            <!-- <p style="color:white; font-weight:bold; font-size: 30px;">TizzyWizzy</p> -->
+        
+    </div>
+        <h1>Find User</h1>
+        <p style="color:white;">Find User</p>
+        <form action ='{{login}}' method="POST">
+            {% csrf_token %}
+            <input type="text" name="username_to_Search"  title= "Verification code is required" maxlength="20" placeholder="Search User By username" required="required" />
+            <button type="submit" style=" margin-top:10px; padding:10px; border-radius:50px;"class="btn btn-primary btn-block btn-large">Search</button>
+        </form>
+    </div>
+    <section class="skills section" id="skills">
+        <div class="skills__container bd-grid"> 
+            {% if context.userstatus %}
+            <div>
+                <div class="skills__data">
+                    <div class="skills__names">
+                        <img style="width:50px; height:auto;" class="profile_img" src="{% static 'images/user.png' %}">
+                        <a href="" ><span style="Color:Green; font-size:10px;"class="skills__name">{{context.userfound}}</span></a>
+                    </div>
+                    <!-- <a href="" class="remove_btn">X</a> -->
+                    <div class="skills__bar skills__html">
+                    </div>
+                    <div>
+                        <span class="skills__percentage"></span>
+                    </div>
+                </div>
+                </div>
+                {% endif %}
+                </div>
+                </section>
+<div class="footer">
+    <a href="/manage/post" ><button class="button button5 plus"><i class="fa fa-upload fa-2x" style="margin-left:-8px;" aria-hidden="true"></i></button></a>
+    <a href="/manage/" ><button class="button button5 plus"><i class="fa fa-list fa-2x" style="margin-left:-8px;"aria-hidden="true"></i></button></a>
+    <a href="/manage/search/{{context.my_username}}" ><button class="button button5 plus"><i class="fa fa-search fa-2x" style="margin-left:-10px;" aria-hidden="true"></i></button> </a>
+    <a href="/manage/{{context.my_username}}" ><button class="button button5 plus"><i class="fa fa-user fa-2x" style="margin-left:-7px;" aria-hidden="true"></i></button></a>
+</div>
