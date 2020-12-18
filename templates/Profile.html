@@ -30,6 +30,8 @@
                 <li><span class="profile-stat-count">{{context.follow.followers}}</span> followers</li>
                 <li><span class="profile-stat-count">{{context.follow.following}}</span> following</li>
             </ul> -->
+            followers-{{context.followers}}
+            following-{{context.following}}
             <a class="login-btn2" href="{% url 'followers_page' context.profile.username %}">Followers</a>
             <a class="login-btn2" href="{% url 'following_page' context.profile.username %}">Following</a>
             {% if not context.itsme %}
@@ -64,7 +66,7 @@
         <a href="/manage/post" ><button class="button button5 plus"><i class="fa fa-upload fa-2x" style="margin-left:-8px;" aria-hidden="true"></i></button></a>
         <a href="/manage/" ><button class="button button5 plus"><i class="fa fa-list fa-2x" style="margin-left:-8px;"aria-hidden="true"></i></button></a>
         <a href="/manage/search/" ><button class="button button5 plus"><i class="fa fa-search fa-2x" style="margin-left:-10px;" aria-hidden="true"></i></button> </a>
-        <a href="/manage/{{context.profile.username}}" ><button class="button button5 plus"><i class="fa fa-user fa-2x" style="margin-left:-7px;" aria-hidden="true"></i></button></a>
+        <a href="/manage/{{context.Usern}}" ><button class="button button5 plus"><i class="fa fa-user fa-2x" style="margin-left:-7px;" aria-hidden="true"></i></button></a>
     </div>
     </body>
     </html>

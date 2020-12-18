@@ -59,9 +59,16 @@ def delete_customer(request,key_id):
 
 def profile(request,username):
     user_id=User.objects.get(username=username)
-    user_by = request.user.id
+    if request.user.is_authenticated:
+        user_by = request.user.id
+        Usern = User.objects.get(id=request.user.id).username
+    else:
+        user_by=1
+        Usern=""
     status_statu = check_user(username,user_by)
     posts1 = posts.objects.filter(user_id=user_id.id)
+    f1 = len(followers.objects.filter(followed_by_id=user_id.id))
+    f = len(followers.objects.filter(followed_to_id=user_id.id))
     # print(user_id.id)
     if len(posts1)==0:
         catch=False
@@ -76,10 +83,12 @@ def profile(request,username):
     context = {
         'profile':User.objects.get(id=user_id.id),
         'posts':posts1,
-        # 'catagory':catagory.objects.all(),
+        'Usern':Usern,
         'status':status_statu,
         'itsme':itsme,
         'posts_exists':catch,
+        'followers':f,
+        'following':f1,
     }
     return render(request,'Profile.html',{'context':context})
 
@@ -112,7 +121,6 @@ def check_user(username,user_by):
         return status
     except:
         return status
-
 
 def like_post(request,posts_id):
     if request.user.is_authenticated:
@@ -153,7 +161,6 @@ def check_liked_or_not(posts_id,user_id_1,user_id):
     except:
         return status
 
-
 def check_like(post_id,val):
     like = posts.objects.get(id=post_id)
     if val=="add":
@@ -163,7 +170,6 @@ def check_like(post_id,val):
         like.like_count-=1
         like.save()
     
-
 def followers_page(request,username):
     page = "following"
     if request.user.is_authenticated:
@@ -183,7 +189,9 @@ def followers_page(request,username):
             'status':status,
             'page':page,
         }
-    return render(request,'followers.html',{'context':context})
+        return render(request,'followers.html',{'context':context})
+    else:
+        return redirect('login-Page')
 
 def remove_follower(request,username1,username):
     if request.user.is_authenticated:
@@ -193,9 +201,6 @@ def remove_follower(request,username1,username):
         print(user,user_to_remove)
         followers.objects.get(followed_to_id=user,followed_by_id=user_to_remove).delete()
         return redirect('/manage/'+username1)
-
-
-
 
 def check_if_thats_me(username,usern1):
     if str(username)==str(usern1):
@@ -223,4 +228,6 @@ def following_page(request,username):
             'page':page,
         }
 
-    return render(request,'followers.html',{'context':context})
+        return render(request,'followers.html',{'context':context})
+    else:
+        return redirect('login-Page')
