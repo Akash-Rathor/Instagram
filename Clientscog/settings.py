@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from cred import credentials as cd
 # os.environ.setdefault("DJANGO_SETTINGS_MODULE", __file__)
 # import django
 # django.setup()
@@ -85,11 +86,11 @@ WSGI_APPLICATION = 'Clientscog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Audiostory',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'ENGINE': cd.ENGINE,
+        'NAME': cd.NAME,
+        'USER': cd.USER,
+        'PASSWORD':cd.PASSWORD,
+        'HOST': cd.HOST,
     }
 }
 

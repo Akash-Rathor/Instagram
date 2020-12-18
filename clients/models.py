@@ -42,8 +42,8 @@ class user_profile(TimeStampMixin):
 
 
 class followers(TimeStampMixin):
-    follower_id=models.IntegerField()
-    followed_id=models.IntegerField()
+    followed_to_id=models.IntegerField()
+    followed_by_id=models.IntegerField()
 
 class posts(TimeStampMixin):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=True)

@@ -30,6 +30,8 @@
                 <li><span class="profile-stat-count">{{context.follow.followers}}</span> followers</li>
                 <li><span class="profile-stat-count">{{context.follow.following}}</span> following</li>
             </ul> -->
+            <a class="login-btn2" href="{% url 'followers_page' context.profile.username %}">Followers</a>
+            <a class="login-btn2" href="{% url 'following_page' context.profile.username %}">Following</a>
             {% if not context.itsme %}
                 {% if not context.status %}
                 <a class="login-btn2" href="{% url 'add_follow' context.profile.username %}">Follow</a>
