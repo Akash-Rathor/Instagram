@@ -143,8 +143,8 @@ MEDIA_URL = '/media/'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'#'smtp.gmail.com'
-EMAIL_HOST_USER = 'ra342334tho4234234ra342342kash3493423234232344426@gmail.com'#'rathorakash096@gmail.com'
-EMAIL_HOST_PASSWORD = 'xwz234234ojy234eqwny2yasdw334234343435345r34werx33epct'#'xwzojyeqwnyyepct'
+EMAIL_HOST_USER = 'ra342334tho4234234ra342342kash3493423234232344426@gmail.com'
+EMAIL_HOST_PASSWORD = 'xwz234234ojy234eqwny2yasdw334234343435345r34werx33epct'
 EMAIL_PORT = 587
 
 
