@@ -1,4 +1,12 @@
+
+
 # Instagram Project
+
+**Youtube video link of working project.**
+Kindly ignore the frontend, I didn't worked on that.
+```
+https://youtu.be/Utj60LXF5Y8
+```
 
 
 functionalities:
@@ -27,5 +35,4 @@ functionalities:
  
  now you are good to check project
  manage.py runserver
- 
 
